@@ -5,6 +5,7 @@ public class PlayerRotation : MonoBehaviour
 {
     private Camera _mainCamera;
     private Rigidbody _rb;
+    [SerializeField] private float rotationSpeed = 10f;
 
     private Quaternion _targetRotation;
 
@@ -22,7 +23,13 @@ public class PlayerRotation : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rb.MoveRotation(_targetRotation);
+        Quaternion smoothRotation = Quaternion.Slerp(
+            _rb.rotation,
+            _targetRotation,
+            rotationSpeed * Time.fixedDeltaTime
+        );
+
+        _rb.MoveRotation(smoothRotation);
     }
 
     private void CalculateRotation()
