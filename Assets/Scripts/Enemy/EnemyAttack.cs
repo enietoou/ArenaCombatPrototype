@@ -1,5 +1,7 @@
+using Combat.Interfaces;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyTargetSystem))]
 public class EnemyAttack : MonoBehaviour
 {
     [SerializeField] private int damage = 10;
@@ -7,29 +9,34 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] private float attackDistance = 1.5f;
 
     private float _nextAttackTime;
-    private Transform _target;
+    private EnemyTargetSystem _targetSystem;
 
     private void Awake()
     {
-        _target = GameObject.FindGameObjectWithTag("Player").transform;
+        _targetSystem = GetComponent<EnemyTargetSystem>();
     }
 
     private void Update()
     {
-        if (_target == null) return;
-        
-        float distance = Vector3.Distance(transform.position, _target.position);
+        var target = _targetSystem.CurrentTarget;
+        if (target == null) return;
+
+        float distance = Vector3.Distance(
+            transform.position,
+            target.GetTransform().position
+        );
 
         if (distance <= attackDistance && Time.time >= _nextAttackTime)
         {
             _nextAttackTime = Time.time + attackRate;
-            Attack();
+            Attack(target);
         }
     }
 
-    private void Attack()
+    private void Attack(ITargetable target)
     {
-        IDamageable damageable = _target.GetComponent<IDamageable>();
+        var transformTarget = target.GetTransform();
+        var damageable = transformTarget.GetComponent<IDamageable>();
 
         if (damageable != null)
         {

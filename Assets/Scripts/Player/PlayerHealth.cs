@@ -1,9 +1,15 @@
+using System;
+using Combat.Interfaces;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour, IDamageable
+public class PlayerHealth : MonoBehaviour, IDamageable, ITargetable
 {
     [SerializeField] private int maxHealth = 100;
     private int _currentHealth;
+    
+    public bool IsAlive => _currentHealth > 0;
+    
+    public Transform GetTransform() => transform;
 
     private void Awake()
     {
@@ -18,5 +24,15 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         {
             Debug.Log("Player is dead");
         }
+    }
+
+    private void OnEnable()
+    {
+        TargetRegistry.AllTargets.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        TargetRegistry.AllTargets.Remove(this);
     }
 }

@@ -2,35 +2,37 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(EnemyTargetSystem))]
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 3f;
-    [SerializeField] private float stoppingDistance = 1f;
+    [SerializeField] private float stoppingDistance = 1.5f;
     private float _sqrStoppingDistance;
 
-    private Transform _target;
+    private EnemyTargetSystem _targetSystem;
     private Rigidbody _rb;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _target = GameObject.FindGameObjectWithTag("Player").transform;
+        _targetSystem = GetComponent<EnemyTargetSystem>();
         _sqrStoppingDistance = stoppingDistance * stoppingDistance;
     }
 
     private void FixedUpdate()
     {
-        if (_target == null) return;
+        var target = _targetSystem.CurrentTarget;
+        if (target == null) return;
+        
+        Vector3 direction = target.GetTransform().position - transform.position;
 
-        MoveTowardsPlayer();
+        MoveTowardsPlayer(direction);
     }
 
-    private void MoveTowardsPlayer()
+    private void MoveTowardsPlayer(Vector3 direction)
     {
-        Vector3 direction = _target.position - transform.position;
-        direction.y = 0;
-
         if (direction.sqrMagnitude <= _sqrStoppingDistance) return;
+        direction.y = 0;
         
         direction.Normalize();
         

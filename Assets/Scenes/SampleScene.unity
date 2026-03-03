@@ -576,6 +576,7 @@ GameObject:
   - component: {fileID: 1023642931}
   - component: {fileID: 1023642937}
   - component: {fileID: 1023642938}
+  - component: {fileID: 1023642939}
   - component: {fileID: 1023642936}
   m_Layer: 0
   m_Name: Cube
@@ -730,7 +731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   moveSpeed: 3
-  stoppingDistance: 1
+  stoppingDistance: 1.5
 --- !u!114 &1023642938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -746,6 +747,18 @@ MonoBehaviour:
   damage: 10
   attackRate: 1
   attackDistance: 1.5
+--- !u!114 &1023642939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023642930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54849bed6ecf7c143b5ea7a9182fc1bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyTargetSystem
 --- !u!1 &1069884623
 GameObject:
   m_ObjectHideFlags: 0

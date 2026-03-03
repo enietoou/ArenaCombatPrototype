@@ -1,3 +1,4 @@
+using Combat.Interfaces;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
