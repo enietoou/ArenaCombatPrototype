@@ -575,6 +575,7 @@ GameObject:
   - component: {fileID: 1023642932}
   - component: {fileID: 1023642931}
   - component: {fileID: 1023642937}
+  - component: {fileID: 1023642938}
   - component: {fileID: 1023642936}
   m_Layer: 0
   m_Name: Cube
@@ -729,6 +730,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   moveSpeed: 3
+  stoppingDistance: 1
+--- !u!114 &1023642938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023642930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081257144d009be4c871def4f755f56f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
+  damage: 10
+  attackRate: 1
+  attackDistance: 1.5
 --- !u!1 &1069884623
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,6 +875,7 @@ GameObject:
   - component: {fileID: 1590546992}
   - component: {fileID: 1590546991}
   - component: {fileID: 1590546999}
+  - component: {fileID: 1590547000}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1043,6 +1061,19 @@ MonoBehaviour:
   fireRate: 0.3
   range: 20
   firePoint: {fileID: 2003333850}
+--- !u!114 &1590547000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590546990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27510da7a82c979469f1d581962073b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 100
 --- !u!1 &2003333849
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float stoppingDistance = 1f;
+    private float _sqrStoppingDistance;
 
     private Transform _target;
     private Rigidbody _rb;
@@ -13,6 +15,7 @@ public class EnemyMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _target = GameObject.FindGameObjectWithTag("Player").transform;
+        _sqrStoppingDistance = stoppingDistance * stoppingDistance;
     }
 
     private void FixedUpdate()
@@ -26,6 +29,9 @@ public class EnemyMovement : MonoBehaviour
     {
         Vector3 direction = _target.position - transform.position;
         direction.y = 0;
+
+        if (direction.sqrMagnitude <= _sqrStoppingDistance) return;
+        
         direction.Normalize();
         
         Vector3 newPosition = _rb.position + direction * (moveSpeed * Time.fixedDeltaTime);
