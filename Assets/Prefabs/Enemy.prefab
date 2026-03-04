@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7720191776534853156}
   - component: {fileID: 3443667103993679642}
   - component: {fileID: 3198798563037464742}
+  - component: {fileID: 2902966797348079901}
   - component: {fileID: 2643704079943011401}
   m_Layer: 0
   m_Name: Enemy
@@ -174,6 +175,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54849bed6ecf7c143b5ea7a9182fc1bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTargetSystem
+--- !u!114 &2902966797348079901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867968957033909233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 402780497a636a84b9941ac6e2b98081, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyRotation
+  rotationSpeed: 45
 --- !u!54 &2643704079943011401
 Rigidbody:
   m_ObjectHideFlags: 0
