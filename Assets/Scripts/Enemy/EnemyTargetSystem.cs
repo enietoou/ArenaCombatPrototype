@@ -34,6 +34,7 @@ public class EnemyTargetSystem : MonoBehaviour
 
         foreach (var t in TargetRegistry.AllTargets)
         {
+            if (t == null) continue;
             if (t.IsAlive)
             {
                 float dist = Vector3.Distance(

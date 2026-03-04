@@ -6,6 +6,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable, ITargetable
 {
     [SerializeField] private int maxHealth = 100;
     private int _currentHealth;
+    public event Action<int> OnHealthChange;
     
     public bool IsAlive => _currentHealth > 0;
     
@@ -19,6 +20,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable, ITargetable
     public void TakeDamage(int amount)
     {
         _currentHealth -= amount;
+        
+        OnHealthChange?.Invoke(_currentHealth);
 
         if (_currentHealth <= 0)
         {
