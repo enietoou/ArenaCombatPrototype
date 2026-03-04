@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable, ITargetable
     [SerializeField] private int maxHealth = 100;
     private int _currentHealth;
     public event Action<int> OnHealthChange;
+    public event Action OnDeath;
     
     public bool IsAlive => _currentHealth > 0;
     
@@ -25,8 +26,14 @@ public class PlayerHealth : MonoBehaviour, IDamageable, ITargetable
 
         if (_currentHealth <= 0)
         {
-            Debug.Log("Player is dead");
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        OnDeath?.Invoke();
+        Debug.Log("Player is dead");
     }
 
     private void OnEnable()

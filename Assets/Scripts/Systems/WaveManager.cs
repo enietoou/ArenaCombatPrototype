@@ -8,10 +8,24 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private EnemySpawner spawner;
     [SerializeField] private int enemiesPerWave = 5;
     [SerializeField] private float spawnRadius = 10f;
+    [SerializeField] private PlayerHealth playerHealth;
+    
+    private bool _gameOver;
 
     private void Start()
     {
+        playerHealth.OnDeath += HandlePlayerDeath;
+        
         StartNextWave();
+    }
+
+    private void HandlePlayerDeath()
+    {
+        _gameOver = true;
+        
+        Time.timeScale = 0f;
+        
+        Debug.Log("Game Over");
     }
 
     public void RegisterEnemy(EnemyHealth enemy)
@@ -35,6 +49,8 @@ public class WaveManager : MonoBehaviour
 
     private void StartNextWave()
     {
+        if (_gameOver) return;
+        
         for (int i = 0; i < enemiesPerWave; i++)
         {
             Vector2 circle = Random.insideUnitCircle * spawnRadius;
