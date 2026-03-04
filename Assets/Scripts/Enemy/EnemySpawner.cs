@@ -4,13 +4,17 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private WaveManager waveManager;
-
-    public void SpawnEnemy(Vector3 position)
+    [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private float spawnRadius = 3f;
+    
+    public EnemyHealth SpawnEnemy()
     {
-        GameObject enemyObj = Instantiate(enemyPrefab, position, Quaternion.identity);
+        int index = Random.Range(0, spawnPoints.Length);
+        
+        Transform spawn = spawnPoints[index];
+        
+        GameObject enemy = Instantiate(enemyPrefab, spawn.position, Quaternion.identity);
 
-        EnemyHealth enemy = enemyObj.GetComponent<EnemyHealth>();
-
-        waveManager.RegisterEnemy(enemy);
+        return enemy.GetComponent<EnemyHealth>();
     }
 }

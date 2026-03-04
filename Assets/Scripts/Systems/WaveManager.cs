@@ -7,7 +7,6 @@ public class WaveManager : MonoBehaviour
     
     [SerializeField] private EnemySpawner spawner;
     [SerializeField] private int enemiesPerWave = 5;
-    [SerializeField] private float spawnRadius = 10f;
     [SerializeField] private PlayerHealth playerHealth;
     
     private bool _gameOver;
@@ -53,11 +52,8 @@ public class WaveManager : MonoBehaviour
         
         for (int i = 0; i < enemiesPerWave; i++)
         {
-            Vector2 circle = Random.insideUnitCircle * spawnRadius;
-
-            Vector3 spawnPos = new Vector3(circle.x, 1f, circle.y);
-
-            spawner.SpawnEnemy(spawnPos);
+            EnemyHealth enemy = spawner.SpawnEnemy();
+            RegisterEnemy(enemy);
         }
 
         enemiesPerWave += 2;
