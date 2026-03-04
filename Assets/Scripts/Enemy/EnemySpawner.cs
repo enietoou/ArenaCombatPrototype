@@ -5,7 +5,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private WaveManager waveManager;
     [SerializeField] private Transform[] spawnPoints;
-    [SerializeField] private float spawnRadius = 3f;
     
     public EnemyHealth SpawnEnemy()
     {
