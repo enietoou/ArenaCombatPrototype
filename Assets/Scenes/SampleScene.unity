@@ -2278,8 +2278,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4867968957033909233, guid: 8e88ba78446de1942a72b0c0a67a0cdd, type: 3}
+      insertIndex: 9
+      addedObject: {fileID: 4312795104542247866}
   m_SourcePrefab: {fileID: 100100000, guid: 8e88ba78446de1942a72b0c0a67a0cdd, type: 3}
+--- !u!1 &4312795104542247865 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4867968957033909233, guid: 8e88ba78446de1942a72b0c0a67a0cdd, type: 3}
+  m_PrefabInstance: {fileID: 4312795104542247864}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4312795104542247866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4312795104542247865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b647432ddb951874c90dac32d06fbcc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDeathEffect
+  deathParticles: {fileID: 0}
+  deathSound: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

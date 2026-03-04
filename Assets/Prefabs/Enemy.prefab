@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3443667103993679642}
   - component: {fileID: 3198798563037464742}
   - component: {fileID: 2902966797348079901}
+  - component: {fileID: 1162472120283176954}
   - component: {fileID: 2643704079943011401}
   m_Layer: 0
   m_Name: Enemy
@@ -188,6 +189,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyRotation
   rotationSpeed: 45
+--- !u!114 &1162472120283176954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867968957033909233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b647432ddb951874c90dac32d06fbcc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDeathEffect
+  deathParticles: {fileID: 424856830669564426, guid: 471bd3a2e2406c146961c4dd80d6545b, type: 3}
+  deathSound: {fileID: 8300000, guid: 1aa031e8878a2494ebea631325937ecb, type: 3}
 --- !u!54 &2643704079943011401
 Rigidbody:
   m_ObjectHideFlags: 0
