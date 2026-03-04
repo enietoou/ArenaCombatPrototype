@@ -130,6 +130,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 100
+  enemyRenderer: {fileID: 5521540443004914315}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashTime: 0.1
 --- !u!114 &7720191776534853156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,8 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4aadc276e95a4440904b5e241964dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  moveSpeed: 3
-  stoppingDistance: 1.5
+  moveSpeed: 2.5
+  stoppingDistance: 1
 --- !u!114 &3443667103993679642
 MonoBehaviour:
   m_ObjectHideFlags: 0

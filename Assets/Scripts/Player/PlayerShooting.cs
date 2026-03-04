@@ -7,6 +7,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private float fireRate = 0.3f;
     [SerializeField] private float range = 20f;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private AudioSource hitSound;
 
     private float _nextFireTime;
     private Camera _mainCamera;
@@ -32,20 +33,37 @@ public class PlayerShooting : MonoBehaviour
 
     private void Shoot()
     {
-        Vector3 direction = firePoint.forward;
-        direction.y = 0f;
-        direction.Normalize();
+        Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+        Plane groundPlane = new Plane(Vector3.up, firePoint.position);
 
-        Ray ray = new Ray(firePoint.position, direction);
-        Debug.DrawRay(ray.origin, ray.direction * range, Color.red, 0.5f);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, range))
+        if (groundPlane.Raycast(ray, out float distance))
         {
-            IDamageable damageable = hit.collider.GetComponent<IDamageable>();
+            Vector3 point = ray.GetPoint(distance);
 
-            if (damageable != null)
+            Vector3 direction = point - firePoint.position;
+            direction.y = 0f;
+            direction.Normalize();
+
+            Ray shootRay = new Ray(firePoint.position, direction);
+
+            Debug.DrawRay(shootRay.origin, shootRay.direction * range, Color.red, 0.5f);
+
+            if (Physics.Raycast(shootRay, out RaycastHit hit, range))
             {
-                damageable.TakeDamage(damage);
+                IDamageable damageable = hit.collider.GetComponent<IDamageable>();
+
+                if (damageable != null)
+                {
+                    damageable.TakeDamage(damage);
+                    hitSound.Play();
+                }
+
+                EnemyMovement enemyMove = hit.collider.GetComponent<EnemyMovement>();
+
+                if (enemyMove != null)
+                {
+                    enemyMove.ApplyKnockback(direction, 10f);
+                }
             }
         }
     }

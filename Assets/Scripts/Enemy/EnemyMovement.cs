@@ -6,8 +6,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 3f;
-    [SerializeField] private float stoppingDistance = 1.5f;
-    private float _sqrStoppingDistance;
+    [SerializeField] private float stoppingDistance = 1f;
 
     private EnemyTargetSystem _targetSystem;
     private Rigidbody _rb;
@@ -16,7 +15,6 @@ public class EnemyMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _targetSystem = GetComponent<EnemyTargetSystem>();
-        _sqrStoppingDistance = stoppingDistance * stoppingDistance;
     }
 
     private void FixedUpdate()
@@ -31,12 +29,18 @@ public class EnemyMovement : MonoBehaviour
 
     private void MoveTowardsPlayer(Vector3 direction)
     {
-        if (direction.sqrMagnitude <= _sqrStoppingDistance) return;
         direction.y = 0;
+        
+        if (direction.magnitude <= stoppingDistance) return;
         
         direction.Normalize();
         
         Vector3 newPosition = _rb.position + direction * (moveSpeed * Time.fixedDeltaTime);
         _rb.MovePosition(newPosition);
+    }
+
+    public void ApplyKnockback(Vector3 direction, float force)
+    {
+        _rb.AddForce(direction * force, ForceMode.Impulse);
     }
 }

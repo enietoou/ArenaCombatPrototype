@@ -35,12 +35,13 @@ public class PlayerRotation : MonoBehaviour
     private void CalculateRotation()
     {
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-        Plane groundPlane = new Plane(Vector3.up, transform.position);
+        Plane groundPlane = new Plane(Vector3.up, _rb.position);
 
         if (groundPlane.Raycast(ray, out float distance))
         {
             Vector3 point = ray.GetPoint(distance);
-            Vector3 direction = point - transform.position;
+
+            Vector3 direction = point - _rb.position;
             direction.y = 0f;
 
             if (direction.sqrMagnitude > 0.0001f)
