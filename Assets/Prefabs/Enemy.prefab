@@ -19,9 +19,9 @@ GameObject:
   - component: {fileID: 2902966797348079901}
   - component: {fileID: 1162472120283176954}
   - component: {fileID: 2643704079943011401}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,6 +149,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   moveSpeed: 2.5
   stoppingDistance: 1
+  separationRadius: 1.2
+  separationStrength: 2
 --- !u!114 &3443667103993679642
 MonoBehaviour:
   m_ObjectHideFlags: 0

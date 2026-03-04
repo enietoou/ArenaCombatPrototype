@@ -986,7 +986,7 @@ GameObject:
   - component: {fileID: 1069884626}
   - component: {fileID: 1069884625}
   - component: {fileID: 1069884624}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1438,7 +1438,7 @@ GameObject:
   - component: {fileID: 1590546999}
   - component: {fileID: 1590547000}
   - component: {fileID: 1590547001}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1625,6 +1625,9 @@ MonoBehaviour:
   range: 20
   firePoint: {fileID: 2003333850}
   hitSound: {fileID: 1707567278}
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &1590547000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1776,7 +1779,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1707567279}
   - component: {fileID: 1707567278}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AudioSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2201,7 +2204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2003333850}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

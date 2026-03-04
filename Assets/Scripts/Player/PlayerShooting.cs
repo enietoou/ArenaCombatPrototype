@@ -8,6 +8,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private float range = 20f;
     [SerializeField] private Transform firePoint;
     [SerializeField] private AudioSource hitSound;
+    [SerializeField] private LayerMask hitMask;
 
     private float _nextFireTime;
     private Camera _mainCamera;
@@ -48,7 +49,7 @@ public class PlayerShooting : MonoBehaviour
 
             Debug.DrawRay(shootRay.origin, shootRay.direction * range, Color.red, 0.5f);
 
-            if (Physics.Raycast(shootRay, out RaycastHit hit, range))
+            if (Physics.Raycast(shootRay, out RaycastHit hit, range, hitMask))
             {
                 IDamageable damageable = hit.collider.GetComponent<IDamageable>();
 

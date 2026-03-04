@@ -7,6 +7,8 @@ public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float stoppingDistance = 1f;
+    [SerializeField] private float separationRadius = 1.2f;
+    [SerializeField] private float separationStrength = 2f;
 
     private EnemyTargetSystem _targetSystem;
     private Rigidbody _rb;
@@ -29,6 +31,10 @@ public class EnemyMovement : MonoBehaviour
 
     private void MoveTowardsPlayer(Vector3 direction)
     {
+        Vector3 separation = CalculateSeparation();
+
+        direction += separation;
+        
         direction.y = 0;
         
         if (direction.magnitude <= stoppingDistance) return;
@@ -42,5 +48,25 @@ public class EnemyMovement : MonoBehaviour
     public void ApplyKnockback(Vector3 direction, float force)
     {
         _rb.AddForce(direction * force, ForceMode.Impulse);
+    }
+
+    private Vector3 CalculateSeparation()
+    {
+        Collider[] neightbors = Physics.OverlapSphere(transform.position, separationRadius);
+
+        Vector3 separation = Vector3.zero;
+
+        foreach (var col in neightbors)
+        {
+         if (col.gameObject == gameObject) continue;
+
+         if (!col.CompareTag("Enemy")) continue;
+         
+         Vector3 away = transform.position - col.transform.position;
+
+         separation += away.normalized / away.magnitude;
+        }
+
+        return separation * separationStrength;
     }
 }
