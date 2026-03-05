@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   maxHealth: 200
   moveSpeed: 1.5
-  stoppingDistance: 1
+  stoppingDistance: 1.4
   rotationSpeed: 2
   damage: 20
-  attackRate: 0.5
-  attackDistance: 1.5
+  attackRate: 2
+  attackDistance: 2
+  aggroRadius: 20

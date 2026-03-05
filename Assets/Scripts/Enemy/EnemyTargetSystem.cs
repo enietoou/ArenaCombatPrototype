@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class EnemyTargetSystem : MonoBehaviour
 {
+    [SerializeField] private EnemyStats stats;
+    [SerializeField] private LayerMask visionMask;
+    
     private ITargetable _currentTarget;
     
     public ITargetable CurrentTarget => _currentTarget;
@@ -24,6 +27,12 @@ public class EnemyTargetSystem : MonoBehaviour
         if (!_currentTarget.IsAlive)
         {
             _currentTarget = null;
+            return;
+        }
+
+        if (!HasLineOfSight(_currentTarget))
+        {
+            _currentTarget = null;
         }
     }
 
@@ -35,21 +44,38 @@ public class EnemyTargetSystem : MonoBehaviour
         foreach (var t in TargetRegistry.AllTargets)
         {
             if (t == null) continue;
-            if (t.IsAlive)
-            {
-                float dist = Vector3.Distance(
-                    transform.position,
-                    t.GetTransform().position
-                );
+            if (!t.IsAlive) continue;
 
-                if (dist < closestDistance)
-                {
-                    closestDistance = dist;
-                    closest = t;
-                }
+            Vector3 dir = t.GetTransform().position - transform.position;
+            float dist = dir.magnitude;
+
+            if (dist > stats.aggroRadius) continue;
+
+            if (!HasLineOfSight(t)) continue;
+
+            if (dist < closestDistance)
+            {
+                closestDistance = dist;
+                closest = t;
             }
         }
 
         _currentTarget = closest;
+    }
+    
+    private bool HasLineOfSight(ITargetable target)
+    {
+        Vector3 origin = transform.position + Vector3.up * 0.5f;
+        Vector3 targetPos = target.GetTransform().position + Vector3.up * 0.5f;
+
+        Vector3 direction = (targetPos - origin).normalized;
+        float distance = Vector3.Distance(origin, targetPos);
+
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, distance, visionMask))
+        {
+            return hit.collider.GetComponent<ITargetable>() != null;
+        }
+
+        return false;
     }
 }

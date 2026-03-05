@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de16ec8f5e87ba24ba1c8dd66c0e6d39, type: 3}
   m_Name: RunnerStats
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
-  maxHealth: 100
-  moveSpeed: 3
+  maxHealth: 40
+  moveSpeed: 4
   stoppingDistance: 1
   rotationSpeed: 4
   damage: 10
-  attackRate: 1
-  attackDistance: 1.5
+  attackRate: 1.5
+  attackDistance: 2
+  aggroRadius: 30

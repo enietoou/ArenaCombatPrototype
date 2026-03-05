@@ -54,11 +54,11 @@ public class EnemyMovement : MonoBehaviour
 
     private Vector3 CalculateSeparation()
     {
-        Collider[] neightbors = Physics.OverlapSphere(transform.position, separationRadius);
+        Collider[] neighbors = Physics.OverlapSphere(transform.position, separationRadius);
 
         Vector3 separation = Vector3.zero;
 
-        foreach (var col in neightbors)
+        foreach (var col in neighbors)
         {
          if (col.gameObject == gameObject) continue;
 

@@ -17,4 +17,7 @@ public class EnemyStats : ScriptableObject
     public int damage = 10;
     public float attackRate = 1f;
     public float attackDistance = 1.5f;
+
+    [Header("Targeting")]
+    public float aggroRadius = 10f;
 }
