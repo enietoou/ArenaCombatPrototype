@@ -417,7 +417,7 @@ GameObject:
   - component: {fileID: 376967114}
   - component: {fileID: 376967113}
   - component: {fileID: 376967112}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Arena
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1627,7 +1627,7 @@ MonoBehaviour:
   hitSound: {fileID: 1707567278}
   hitMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 896
 --- !u!114 &1590547000
 MonoBehaviour:
   m_ObjectHideFlags: 0

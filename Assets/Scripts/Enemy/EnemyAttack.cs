@@ -4,9 +4,11 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyTargetSystem))]
 public class EnemyAttack : MonoBehaviour
 {
-    [SerializeField] private int damage = 10;
-    [SerializeField] private float attackRate = 1f;
-    [SerializeField] private float attackDistance = 1.5f;
+    [SerializeField] private EnemyStats stats;
+    
+    // private int _damage = 10;
+    // private float _attackRate = 1f;
+    // private float _attackDistance = 1.5f;
 
     private float _nextAttackTime;
     private EnemyTargetSystem _targetSystem;
@@ -26,9 +28,9 @@ public class EnemyAttack : MonoBehaviour
             target.GetTransform().position
         );
 
-        if (distance <= attackDistance && Time.time >= _nextAttackTime)
+        if (distance <= stats.attackDistance && Time.time >= _nextAttackTime)
         {
-            _nextAttackTime = Time.time + attackRate;
+            _nextAttackTime = Time.time + stats.attackRate;
             Attack(target);
         }
     }
@@ -40,7 +42,7 @@ public class EnemyAttack : MonoBehaviour
 
         if (damageable != null)
         {
-            damageable.TakeDamage(damage);
+            damageable.TakeDamage(stats.damage);
         }
     }
 }

@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private EnemyStats stats;
+    
+    // private int _maxHealth = 100;
     [SerializeField] private Renderer enemyRenderer;
     [SerializeField] private Color damageColor = Color.red;
     [SerializeField] private float flashTime = 0.1f;
@@ -19,7 +21,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        _currentHealth = maxHealth;
+        _currentHealth = stats.maxHealth;
         _originalColor = enemyRenderer.material.color;
     }
 

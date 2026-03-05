@@ -5,8 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyTargetSystem))]
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 3f;
-    [SerializeField] private float stoppingDistance = 1f;
+    [SerializeField] private EnemyStats stats;
+    
+    // private float _moveSpeed = 3f;
+    // private float _stoppingDistance = 1f;
     [SerializeField] private float separationRadius = 1.2f;
     [SerializeField] private float separationStrength = 2f;
 
@@ -37,11 +39,11 @@ public class EnemyMovement : MonoBehaviour
         
         direction.y = 0;
         
-        if (direction.magnitude <= stoppingDistance) return;
+        if (direction.magnitude <= stats.stoppingDistance) return;
         
         direction.Normalize();
         
-        Vector3 newPosition = _rb.position + direction * (moveSpeed * Time.fixedDeltaTime);
+        Vector3 newPosition = _rb.position + direction * (stats.moveSpeed * Time.fixedDeltaTime);
         _rb.MovePosition(newPosition);
     }
 

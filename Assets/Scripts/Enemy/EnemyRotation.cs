@@ -4,7 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyTargetSystem))]
 public class EnemyRotation : MonoBehaviour
 {
-    [SerializeField] private float rotationSpeed = 1f;
+    [SerializeField] private EnemyStats stats;
+    
+    // private float _rotationSpeed = 1f;
     
     private Rigidbody _rb;
     private EnemyTargetSystem _targetSystem;
@@ -39,7 +41,7 @@ public class EnemyRotation : MonoBehaviour
         Quaternion smoothRotation = Quaternion.Slerp(
             _rb.rotation, 
             targetRotation, 
-            rotationSpeed * Time.fixedDeltaTime);
+            stats.rotationSpeed * Time.fixedDeltaTime);
         
         _rb.MoveRotation(smoothRotation);
     }
