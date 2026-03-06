@@ -23,15 +23,15 @@ public class EnemyMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var target = _targetSystem.CurrentTarget;
-        if (target == null) return;
+        // var target = _targetSystem.CurrentTarget;
+        // if (target == null) return;
         
-        Vector3 direction = target.GetTransform().position - transform.position;
+        // Vector3 direction = target.GetTransform().position - transform.position;
 
-        MoveTowardsPlayer(direction);
+        // MoveTowards(direction);
     }
 
-    private void MoveTowardsPlayer(Vector3 direction)
+    public void MoveTowards(Vector3 direction, bool lookingAtTarget = true)
     {
         Vector3 separation = CalculateSeparation();
 
@@ -39,11 +39,13 @@ public class EnemyMovement : MonoBehaviour
         
         direction.y = 0;
         
-        if (direction.magnitude <= stats.stoppingDistance) return;
+        if (lookingAtTarget && direction.magnitude <= stats.stoppingDistance) return;
+        if (!lookingAtTarget && direction.magnitude <= 0.1f) return;
         
         direction.Normalize();
         
         Vector3 newPosition = _rb.position + direction * (stats.moveSpeed * Time.fixedDeltaTime);
+        
         _rb.MovePosition(newPosition);
     }
 

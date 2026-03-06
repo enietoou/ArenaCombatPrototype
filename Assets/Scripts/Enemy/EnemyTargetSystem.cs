@@ -9,6 +9,8 @@ public class EnemyTargetSystem : MonoBehaviour
     private ITargetable _currentTarget;
     
     public ITargetable CurrentTarget => _currentTarget;
+    
+    public Vector3 LastKnownPosition { get; private set; }
 
     private void Update()
     {
@@ -28,6 +30,11 @@ public class EnemyTargetSystem : MonoBehaviour
         {
             _currentTarget = null;
             return;
+        }
+
+        if (_currentTarget != null)
+        {
+            LastKnownPosition = _currentTarget.GetTransform().position;
         }
 
         if (!HasLineOfSight(_currentTarget))

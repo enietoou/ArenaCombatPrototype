@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RunnerStats
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   maxHealth: 40
-  moveSpeed: 4
+  moveSpeed: 3
   stoppingDistance: 1
   rotationSpeed: 4
   damage: 10
   attackRate: 1.5
   attackDistance: 2
-  aggroRadius: 30
+  aggroRadius: 25
