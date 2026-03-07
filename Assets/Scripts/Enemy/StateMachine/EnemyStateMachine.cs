@@ -7,12 +7,14 @@ public class EnemyStateMachine : MonoBehaviour
 
     public EnemyIdleState IdleState { get; private set; }
     public EnemyChaseState ChaseState { get; private set; }
+    public EnemyAttackState AttackState { get; private set; }
     public EnemySearchState SearchState { get; private set; }
 
     private void Awake()
     {
         IdleState = new EnemyIdleState(this);
         ChaseState = new EnemyChaseState(this);
+        AttackState = new EnemyAttackState(this);
         SearchState = new EnemySearchState(this);
     }
 

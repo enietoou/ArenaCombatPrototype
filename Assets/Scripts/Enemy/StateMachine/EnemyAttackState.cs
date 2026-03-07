@@ -1,17 +1,17 @@
 using UnityEngine;
 
-public class EnemyChaseState : EnemyState
+public class EnemyAttackState : EnemyState
 {
     private EnemyTargetSystem _targetSystem;
-    private EnemyMovement _movement;
+    private EnemyAttack _attack;
     private EnemyStats _stats;
-    
-    public EnemyChaseState(EnemyStateMachine sm) : base(sm) { }
+
+    public EnemyAttackState(EnemyStateMachine sm) : base(sm) {}
 
     public override void Enter()
     {
         _targetSystem = StateMachine.GetComponent<EnemyTargetSystem>();
-        _movement = StateMachine.GetComponent<EnemyMovement>();
+        _attack = StateMachine.GetComponent<EnemyAttack>();
         _stats = StateMachine.GetComponent<EnemyAttack>().stats;
     }
 
@@ -24,17 +24,17 @@ public class EnemyChaseState : EnemyState
             StateMachine.ChangeState(StateMachine.SearchState);
             return;
         }
-        
+
         Vector3 dir = target.GetTransform().position - StateMachine.transform.position;
 
         float distance = dir.magnitude;
 
-        if (distance <= _stats.attackDistance)
+        if (distance > _stats.attackDistance)
         {
-            StateMachine.ChangeState(StateMachine.AttackState);
+            StateMachine.ChangeState(StateMachine.ChaseState);
             return;
         }
-        
-        _movement.MoveTowards(dir);
+
+        _attack.Attack(target);
     }
 }
