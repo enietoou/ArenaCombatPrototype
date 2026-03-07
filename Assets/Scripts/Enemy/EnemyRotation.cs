@@ -6,40 +6,34 @@ public class EnemyRotation : MonoBehaviour
     private Enemy _enemy;
     
     private Rigidbody _rb;
-    private EnemyTargetSystem _targetSystem;
+    
+    private Vector3 _desiredDirection;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _targetSystem = GetComponent<EnemyTargetSystem>();
         _enemy = GetComponent<Enemy>();
+    }
+
+    public void SetDirection(Vector3 direction)
+    {
+        direction.y = 0;
+
+        if (direction.sqrMagnitude < 0.001f) return;
+        
+        _desiredDirection = direction.normalized;
     }
 
     private void FixedUpdate()
     {
-        RotateToTarget();
-    }
+        if (_desiredDirection.sqrMagnitude < 0.001f) return;
+        
+        Quaternion targetRotation = Quaternion.LookRotation(_desiredDirection);
 
-    private void RotateToTarget()
-    {
-        var target = _targetSystem.CurrentTarget;
-        
-        if (target == null) return;
-        
-        Vector3 direction = target.GetTransform().position - _rb.position;
-
-        direction.y = 0f;
-        
-        if (direction.sqrMagnitude < 0.001f) return;
-        
-        direction.Normalize();
-        
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        
-        Quaternion smoothRotation = Quaternion.Slerp(
-            _rb.rotation, 
-            targetRotation, 
-            _enemy.Stats.rotationSpeed * Time.fixedDeltaTime);
+        Quaternion smoothRotation = Quaternion.RotateTowards(
+            _rb.rotation,
+            targetRotation,
+            _enemy.Stats.rotationSpeed * Time.fixedDeltaTime * 360f);
         
         _rb.MoveRotation(smoothRotation);
     }

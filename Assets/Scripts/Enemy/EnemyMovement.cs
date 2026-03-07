@@ -12,22 +12,14 @@ public class EnemyMovement : MonoBehaviour
 
     private EnemyTargetSystem _targetSystem;
     private Rigidbody _rb;
+    private EnemyRotation _rotation;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _targetSystem = GetComponent<EnemyTargetSystem>();
         _enemy = GetComponent<Enemy>();
-    }
-
-    private void FixedUpdate()
-    {
-        // var target = _targetSystem.CurrentTarget;
-        // if (target == null) return;
-        
-        // Vector3 direction = target.GetTransform().position - transform.position;
-
-        // MoveTowards(direction);
+        _rotation = GetComponent<EnemyRotation>();
     }
 
     public void MoveTowards(Vector3 direction, bool lookingAtTarget = true)
@@ -41,9 +33,11 @@ public class EnemyMovement : MonoBehaviour
         if (lookingAtTarget && direction.magnitude <= _enemy.Stats.stoppingDistance) return;
         if (!lookingAtTarget && direction.magnitude <= 0.1f) return;
         
-        direction.Normalize();
-        
-        Vector3 newPosition = _rb.position + direction * (_enemy.Stats.moveSpeed * Time.fixedDeltaTime);
+        _rotation.SetDirection(direction);
+
+        Vector3 forward = transform.forward;
+
+        Vector3 newPosition = _rb.position + forward * (_enemy.Stats.moveSpeed * Time.fixedDeltaTime);
         
         _rb.MovePosition(newPosition);
     }

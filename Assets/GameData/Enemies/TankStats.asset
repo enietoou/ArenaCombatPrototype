@@ -15,7 +15,7 @@ MonoBehaviour:
   maxHealth: 200
   moveSpeed: 1.5
   stoppingDistance: 1.4
-  rotationSpeed: 2
+  rotationSpeed: 8
   damage: 20
   attackRate: 2
   attackDistance: 2
