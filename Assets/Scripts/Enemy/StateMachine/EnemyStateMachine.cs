@@ -4,11 +4,14 @@ using UnityEngine;
 public class EnemyStateMachine : MonoBehaviour
 {
     private EnemyState _currentState;
+    private EnemyState _previousState;
 
     public EnemyIdleState IdleState { get; private set; }
     public EnemyChaseState ChaseState { get; private set; }
     public EnemyAttackState AttackState { get; private set; }
     public EnemySearchState SearchState { get; private set; }
+    public EnemyStunState StunState { get; private set; }
+    public bool IsStunned => _currentState is EnemyStunState;
 
     private void Awake()
     {
@@ -16,6 +19,7 @@ public class EnemyStateMachine : MonoBehaviour
         ChaseState = new EnemyChaseState(this);
         AttackState = new EnemyAttackState(this);
         SearchState = new EnemySearchState(this);
+        StunState = new EnemyStunState(this);
     }
 
     private void Start()
@@ -35,8 +39,27 @@ public class EnemyStateMachine : MonoBehaviour
 
     public void ChangeState(EnemyState newState)
     {
-        _currentState?.Exit();
+        if (_currentState != null)
+        {
+            _currentState.Exit();
+            if (!(_currentState is EnemyStunState))
+            {
+                _previousState = _currentState;
+            }
+        }
+        
         _currentState = newState;
         _currentState?.Enter();
+    }
+
+    public void ReturnToPreviousState()
+    {
+        if (_previousState == null)
+        {
+            ChangeState(IdleState);
+            return;
+        };
+        
+        ChangeState(_previousState);
     }
 }

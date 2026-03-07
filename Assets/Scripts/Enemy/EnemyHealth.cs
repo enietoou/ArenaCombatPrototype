@@ -11,6 +11,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private Enemy _enemy;
 
+    private EnemyStateMachine _stateMachine;
+
     private Color _originalColor;
     
     private int _currentHealth;
@@ -23,6 +25,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         _enemy = GetComponent<Enemy>();
         _currentHealth = _enemy.Stats.maxHealth;
         _originalColor = enemyRenderer.material.color;
+        _stateMachine = GetComponent<EnemyStateMachine>();
     }
 
     public void TakeDamage(int amount)
@@ -34,6 +37,18 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         if (_currentHealth <= 0)
         {
             Die();
+        }
+
+        if (_stateMachine != null)
+        {
+            if (_stateMachine.IsStunned)
+            {
+                _stateMachine.StunState.Refresh();
+            }
+            else
+            {
+                _stateMachine.ChangeState(_stateMachine.StunState);
+            }
         }
     }
 
