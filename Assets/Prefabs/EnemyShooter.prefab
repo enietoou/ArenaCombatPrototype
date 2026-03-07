@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 50904485022281622}
   - component: {fileID: 2782751397074760183}
   - component: {fileID: 5621806842390805312}
+  - component: {fileID: 2039456506830218581}
   - component: {fileID: 7992255623109354584}
   - component: {fileID: 8787639594231357185}
   m_Layer: 7
@@ -189,9 +190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfcd36477324a54abc037a7a92b171a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  enemyRenderer: {fileID: 9085569822104763529}
-  damageColor: {r: 1, g: 0, b: 0, a: 1}
-  flashTime: 0.1
 --- !u!114 &50904485022281622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +230,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDeathEffect
   deathParticles: {fileID: 424856830669564426, guid: 471bd3a2e2406c146961c4dd80d6545b, type: 3}
   deathSound: {fileID: 8300000, guid: 1aa031e8878a2494ebea631325937ecb, type: 3}
+--- !u!114 &2039456506830218581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2457610024322145382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c2ae5ae7e03a649b773364afec7e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHitFlashEffect
+  enemyRenderer: {fileID: 9085569822104763529}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashTime: 0.1
 --- !u!114 &7992255623109354584
 MonoBehaviour:
   m_ObjectHideFlags: 0

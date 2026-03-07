@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,5 +58,10 @@ public class WaveManager : MonoBehaviour
         }
 
         enemiesPerWave += 2;
+    }
+
+    private void OnDestroy()
+    {
+        playerHealth.OnDeath -= HandlePlayerDeath;
     }
 }
