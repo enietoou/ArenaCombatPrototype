@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 8216152743984203449}
   - component: {fileID: 7305560934342178367}
   - component: {fileID: 5545120070108939339}
+  - component: {fileID: -8602220242258219225}
   m_Layer: 7
   m_Name: EnemyRunner
   m_TagString: Enemy
@@ -159,7 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfcd36477324a54abc037a7a92b171a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  stats: {fileID: 11400000, guid: 45729e75ce48bcd4fa545d4f280451ca, type: 2}
   enemyRenderer: {fileID: 6125552826585597066}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   flashTime: 0.1
@@ -175,7 +175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4aadc276e95a4440904b5e241964dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  stats: {fileID: 11400000, guid: 45729e75ce48bcd4fa545d4f280451ca, type: 2}
   separationRadius: 1.2
   separationStrength: 2
 --- !u!114 &6542486907337479788
@@ -190,7 +189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54849bed6ecf7c143b5ea7a9182fc1bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTargetSystem
-  stats: {fileID: 11400000, guid: 45729e75ce48bcd4fa545d4f280451ca, type: 2}
   visionMask:
     serializedVersion: 2
     m_Bits: 1344
@@ -206,7 +204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 402780497a636a84b9941ac6e2b98081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyRotation
-  stats: {fileID: 11400000, guid: 45729e75ce48bcd4fa545d4f280451ca, type: 2}
 --- !u!114 &8216152743984203449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,7 +216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081257144d009be4c871def4f755f56f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
-  stats: {fileID: 11400000, guid: 45729e75ce48bcd4fa545d4f280451ca, type: 2}
 --- !u!114 &7305560934342178367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,3 +242,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63962b6c1b5261445ae77496cfdb4260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
+--- !u!114 &-8602220242258219225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049198343863346800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890653de6c8a31047a4cf88ada87e49a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  stats: {fileID: 11400000, guid: 45729e75ce48bcd4fa545d4f280451ca, type: 2}

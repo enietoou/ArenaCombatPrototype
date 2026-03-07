@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
-    [SerializeField] private EnemyStats stats;
-    
-    // private int _maxHealth = 100;
     [SerializeField] private Renderer enemyRenderer;
     [SerializeField] private Color damageColor = Color.red;
     [SerializeField] private float flashTime = 0.1f;
+
+    private Enemy _enemy;
 
     private Color _originalColor;
     
@@ -21,7 +20,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        _currentHealth = stats.maxHealth;
+        _enemy = GetComponent<Enemy>();
+        _currentHealth = _enemy.Stats.maxHealth;
         _originalColor = enemyRenderer.material.color;
     }
 

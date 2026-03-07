@@ -5,12 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyTargetSystem))]
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] private EnemyStats stats;
-    
-    // private float _moveSpeed = 3f;
-    // private float _stoppingDistance = 1f;
     [SerializeField] private float separationRadius = 1.2f;
     [SerializeField] private float separationStrength = 2f;
+
+    private Enemy _enemy;
 
     private EnemyTargetSystem _targetSystem;
     private Rigidbody _rb;
@@ -19,6 +17,7 @@ public class EnemyMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _targetSystem = GetComponent<EnemyTargetSystem>();
+        _enemy = GetComponent<Enemy>();
     }
 
     private void FixedUpdate()
@@ -39,12 +38,12 @@ public class EnemyMovement : MonoBehaviour
         
         direction.y = 0;
         
-        if (lookingAtTarget && direction.magnitude <= stats.stoppingDistance) return;
+        if (lookingAtTarget && direction.magnitude <= _enemy.Stats.stoppingDistance) return;
         if (!lookingAtTarget && direction.magnitude <= 0.1f) return;
         
         direction.Normalize();
         
-        Vector3 newPosition = _rb.position + direction * (stats.moveSpeed * Time.fixedDeltaTime);
+        Vector3 newPosition = _rb.position + direction * (_enemy.Stats.moveSpeed * Time.fixedDeltaTime);
         
         _rb.MovePosition(newPosition);
     }

@@ -3,14 +3,20 @@ using UnityEngine;
 
 public class EnemyTargetSystem : MonoBehaviour
 {
-    [SerializeField] private EnemyStats stats;
     [SerializeField] private LayerMask visionMask;
+
+    private Enemy _enemy;
     
     private ITargetable _currentTarget;
     
     public ITargetable CurrentTarget => _currentTarget;
     
     public Vector3 LastKnownPosition { get; private set; }
+
+    private void Awake()
+    {
+        _enemy = GetComponent<Enemy>();
+    }
 
     private void Update()
     {
@@ -56,7 +62,7 @@ public class EnemyTargetSystem : MonoBehaviour
             Vector3 dir = t.GetTransform().position - transform.position;
             float dist = dir.magnitude;
 
-            if (dist > stats.aggroRadius) continue;
+            if (dist > _enemy.Stats.aggroRadius) continue;
 
             if (!HasLineOfSight(t)) continue;
 

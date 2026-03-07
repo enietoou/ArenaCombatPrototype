@@ -4,7 +4,7 @@ public class EnemyChaseState : EnemyState
 {
     private EnemyTargetSystem _targetSystem;
     private EnemyMovement _movement;
-    private EnemyStats _stats;
+    private Enemy _enemy;
     
     public EnemyChaseState(EnemyStateMachine sm) : base(sm) { }
 
@@ -12,7 +12,7 @@ public class EnemyChaseState : EnemyState
     {
         _targetSystem = StateMachine.GetComponent<EnemyTargetSystem>();
         _movement = StateMachine.GetComponent<EnemyMovement>();
-        _stats = StateMachine.GetComponent<EnemyAttack>().stats;
+        _enemy = StateMachine.GetComponent<Enemy>();
     }
 
     public override void FixedUpdate()
@@ -29,7 +29,7 @@ public class EnemyChaseState : EnemyState
 
         float distance = dir.magnitude;
 
-        if (distance <= _stats.attackDistance)
+        if (distance <= _enemy.Stats.attackDistance)
         {
             StateMachine.ChangeState(StateMachine.AttackState);
             return;

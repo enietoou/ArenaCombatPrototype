@@ -1,11 +1,17 @@
+using System;
 using Combat.Interfaces;
 using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    [SerializeField] public EnemyStats stats;
+    private Enemy _enemy;
 
     private float _nextAttackTime;
+
+    private void Awake()
+    {
+        _enemy = GetComponent<Enemy>();
+    }
 
     public bool CanAttack()
     {
@@ -16,14 +22,14 @@ public class EnemyAttack : MonoBehaviour
     {
         if (!CanAttack()) return;
 
-        _nextAttackTime = Time.time + stats.attackRate;
+        _nextAttackTime = Time.time + _enemy.Stats.attackRate;
 
         var transformTarget = target.GetTransform();
         var damageable = transformTarget.GetComponent<IDamageable>();
 
         if (damageable != null)
         {
-            damageable.TakeDamage(stats.damage);
+            damageable.TakeDamage(_enemy.Stats.damage);
         }
     }
 }
