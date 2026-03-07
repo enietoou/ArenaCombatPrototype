@@ -13,6 +13,8 @@ public class EnemyStateMachine : MonoBehaviour
     public EnemyStunState StunState { get; private set; }
     public bool IsStunned => _currentState is EnemyStunState;
 
+    private EnemyHealth _health;
+
     private void Awake()
     {
         IdleState = new EnemyIdleState(this);
@@ -20,6 +22,13 @@ public class EnemyStateMachine : MonoBehaviour
         AttackState = new EnemyAttackState(this);
         SearchState = new EnemySearchState(this);
         StunState = new EnemyStunState(this);
+
+        _health = GetComponent<EnemyHealth>();
+
+        if (_health != null)
+        {
+            _health.OnDamage += HandleDamage;
+        }
     }
 
     private void Start()
@@ -61,5 +70,22 @@ public class EnemyStateMachine : MonoBehaviour
         };
         
         ChangeState(_previousState);
+    }
+
+    private void HandleDamage()
+    {
+        if (IsStunned)
+        {
+            StunState.Refresh();
+        }
+        else
+        {
+            ChangeState(StunState);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        _health.OnDamage -= HandleDamage;
     }
 }

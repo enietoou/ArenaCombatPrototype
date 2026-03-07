@@ -6,6 +6,8 @@ public class EnemyTargetSystem : MonoBehaviour
     [SerializeField] private LayerMask visionMask;
 
     private Enemy _enemy;
+
+    private float _nextUpdateTime;
     
     private ITargetable _currentTarget;
     
@@ -20,6 +22,10 @@ public class EnemyTargetSystem : MonoBehaviour
 
     private void Update()
     {
+        if (Time.time < _nextUpdateTime) return;
+
+        _nextUpdateTime = Time.time + 0.2f;
+        
         ValidateTarget();
 
         if (_currentTarget == null)
