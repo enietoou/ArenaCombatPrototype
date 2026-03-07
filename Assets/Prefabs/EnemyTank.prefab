@@ -148,8 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4aadc276e95a4440904b5e241964dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  separationRadius: 1.2
-  separationStrength: 2
+  separationRadius: 1.5
+  separationStrength: 1.2
 --- !u!114 &3443667103993679642
 MonoBehaviour:
   m_ObjectHideFlags: 0

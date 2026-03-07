@@ -6,13 +6,15 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float separationRadius = 1.2f;
-    [SerializeField] private float separationStrength = 2f;
+    [SerializeField] private float separationStrength = 1.2f;
 
     private Enemy _enemy;
 
     private EnemyTargetSystem _targetSystem;
     private Rigidbody _rb;
     private EnemyRotation _rotation;
+    
+    private Collider[] _neighborsBuffer = new Collider[16];
 
     private void Awake()
     {
@@ -49,19 +51,23 @@ public class EnemyMovement : MonoBehaviour
 
     private Vector3 CalculateSeparation()
     {
-        Collider[] neighbors = Physics.OverlapSphere(transform.position, separationRadius);
+        int count = Physics.OverlapSphereNonAlloc(
+            transform.position,
+            separationRadius,
+            _neighborsBuffer);
 
         Vector3 separation = Vector3.zero;
 
-        foreach (var col in neighbors)
+        for (int i = 0; i < count; i++)
         {
-         if (col.gameObject == gameObject) continue;
+            Collider col = _neighborsBuffer[i];
+            
+            if (col.gameObject == gameObject) continue;
+            if(!col.CompareTag("Enemy")) continue;
 
-         if (!col.CompareTag("Enemy")) continue;
-         
-         Vector3 away = transform.position - col.transform.position;
+            Vector3 away = transform.position - col.transform.position;
 
-         separation += away.normalized / away.magnitude;
+            separation += away.normalized / away.magnitude;
         }
 
         return separation * separationStrength;
