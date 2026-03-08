@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    private int _aliveEnemies;
-    
     [SerializeField] private EnemySpawner spawner;
-    [SerializeField] private int enemiesPerWave = 5;
+    [SerializeField] private WaveConfig waveConfig;
     [SerializeField] private PlayerHealth playerHealth;
+    
+    private int _aliveEnemies;
+    private int _currentWaveIndex;
     
     private bool _gameOver;
 
@@ -24,8 +25,31 @@ public class WaveManager : MonoBehaviour
         _gameOver = true;
         
         Time.timeScale = 0f;
+    }
+    
+    private void StartNextWave()
+    {
+        if (_gameOver) return;
         
-        Debug.Log("Game Over");
+        if (_currentWaveIndex >= waveConfig.waves.Length)
+        {
+            Debug.Log("All waves completed!");
+            return;
+        }
+        
+        WaveData wave = waveConfig.waves[_currentWaveIndex];
+
+        foreach (var enemyGroup in wave.enemies)
+        {
+            for (int i = 0; i < enemyGroup.count; i++)
+            {
+                EnemyHealth enemy = spawner.SpawnEnemy(enemyGroup.enemyPrefab);
+                
+                RegisterEnemy(enemy);
+            }
+        }
+        
+        _currentWaveIndex++;
     }
 
     public void RegisterEnemy(EnemyHealth enemy)
@@ -45,19 +69,6 @@ public class WaveManager : MonoBehaviour
         {
             StartNextWave();
         }
-    }
-
-    private void StartNextWave()
-    {
-        if (_gameOver) return;
-        
-        for (int i = 0; i < enemiesPerWave; i++)
-        {
-            EnemyHealth enemy = spawner.SpawnEnemy();
-            RegisterEnemy(enemy);
-        }
-
-        enemiesPerWave += 2;
     }
 
     private void OnDestroy()

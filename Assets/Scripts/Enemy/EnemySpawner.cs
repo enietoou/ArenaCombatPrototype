@@ -2,11 +2,9 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private WaveManager waveManager;
     [SerializeField] private Transform[] spawnPoints;
     
-    public EnemyHealth SpawnEnemy()
+    public EnemyHealth SpawnEnemy(GameObject enemyPrefab)
     {
         int index = Random.Range(0, spawnPoints.Length);
         
