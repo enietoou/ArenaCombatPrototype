@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
@@ -7,6 +7,10 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private EnemySpawner spawner;
     [SerializeField] private WaveConfig waveConfig;
     [SerializeField] private PlayerHealth playerHealth;
+    
+    public event Action<int> OnWaveStarted;
+    public event Action<int> OnEnemyCountChanged;
+    public event Action OnAllWavesCompleted;
     
     private int _aliveEnemies;
     private int _currentWaveIndex;
@@ -33,11 +37,13 @@ public class WaveManager : MonoBehaviour
         
         if (_currentWaveIndex >= waveConfig.waves.Length)
         {
-            Debug.Log("All waves completed!");
+            OnAllWavesCompleted?.Invoke();
             return;
         }
         
         WaveData wave = waveConfig.waves[_currentWaveIndex];
+        
+        OnWaveStarted?.Invoke(_currentWaveIndex + 1);
 
         foreach (var enemyGroup in wave.enemies)
         {
@@ -55,6 +61,8 @@ public class WaveManager : MonoBehaviour
     public void RegisterEnemy(EnemyHealth enemy)
     {
         _aliveEnemies++;
+        
+        OnEnemyCountChanged?.Invoke(_aliveEnemies);
 
         enemy.OnDeath += HandleEnemyDeath;
     }
@@ -62,6 +70,8 @@ public class WaveManager : MonoBehaviour
     private void HandleEnemyDeath(EnemyHealth enemy)
     {
         _aliveEnemies--;
+        
+        OnEnemyCountChanged?.Invoke(_aliveEnemies);
 
         enemy.OnDeath -= HandleEnemyDeath;
 

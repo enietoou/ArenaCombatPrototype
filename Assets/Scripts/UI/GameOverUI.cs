@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 
@@ -15,5 +16,10 @@ public class GameOverUI : MonoBehaviour
     private void ShowGameOver()
     {
         gameOverText.gameObject.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        playerHealth.OnDeath -= ShowGameOver;
     }
 }
