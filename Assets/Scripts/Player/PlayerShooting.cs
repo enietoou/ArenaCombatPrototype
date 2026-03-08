@@ -9,6 +9,8 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private AudioSource hitSound;
     [SerializeField] private LayerMask hitMask;
+    [SerializeField] private BulletTracer tracerPrefab;
+    [SerializeField] private AudioClip shootSound;
 
     private float _nextFireTime;
     private Camera _mainCamera;
@@ -36,7 +38,10 @@ public class PlayerShooting : MonoBehaviour
     {
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
         Plane groundPlane = new Plane(Vector3.up, firePoint.position);
-
+        
+        if (shootSound != null)
+            AudioSource.PlayClipAtPoint(shootSound, firePoint.position);
+        
         if (groundPlane.Raycast(ray, out float distance))
         {
             Vector3 point = ray.GetPoint(distance);
@@ -47,10 +52,12 @@ public class PlayerShooting : MonoBehaviour
 
             Ray shootRay = new Ray(firePoint.position, direction);
 
-            Debug.DrawRay(shootRay.origin, shootRay.direction * range, Color.red, 0.5f);
+            Vector3 hitPoint = firePoint.position + direction * range;
 
             if (Physics.Raycast(shootRay, out RaycastHit hit, range, hitMask))
             {
+                hitPoint = hit.point;
+                
                 IDamageable damageable = hit.collider.GetComponent<IDamageable>();
 
                 if (damageable != null)
@@ -66,6 +73,14 @@ public class PlayerShooting : MonoBehaviour
                     enemyMove.ApplyKnockback(direction, 10f);
                 }
             }
+            
+            SpawnTracer(firePoint.position, hitPoint);
         }
+    }
+
+    private void SpawnTracer(Vector3 start, Vector3 end)
+    {
+        BulletTracer tracer = Instantiate(tracerPrefab, start, Quaternion.identity);
+        tracer.Init(start, end);
     }
 }
