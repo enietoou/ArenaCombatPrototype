@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -13,4 +14,24 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyStats stats;
     
     public EnemyStats Stats => stats;
+
+    private EnemyHealth _health;
+    private EnemyStateMachine _stateMachine;
+    private EnemyMovement _movement;
+
+    private void Awake()
+    {
+        _health = GetComponent<EnemyHealth>();
+        _stateMachine = GetComponent<EnemyStateMachine>();
+        _movement = GetComponent<EnemyMovement>();
+    }
+
+    public void ResetEnemy()
+    {
+        _health.ResetHealth();
+
+        _stateMachine.ResetState();
+
+        _movement.ResetMovement();
+    }
 }

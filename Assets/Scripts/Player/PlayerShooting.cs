@@ -12,11 +12,13 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private BulletTracer tracerPrefab;
     [SerializeField] private AudioClip shootSound;
 
+    private ObjectPool<BulletTracer> _tracerPool;
     private float _nextFireTime;
     private Camera _mainCamera;
 
     private void Awake()
     {
+        _tracerPool = new ObjectPool<BulletTracer>(tracerPrefab, 10);
         _mainCamera = Camera.main;
     }
 
@@ -80,7 +82,10 @@ public class PlayerShooting : MonoBehaviour
 
     private void SpawnTracer(Vector3 start, Vector3 end)
     {
-        BulletTracer tracer = Instantiate(tracerPrefab, start, Quaternion.identity);
+        BulletTracer tracer = _tracerPool.Get();
+        
+        tracer.SetPool(_tracerPool);
+        
         tracer.Init(start, end);
     }
 }

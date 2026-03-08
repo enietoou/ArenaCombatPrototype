@@ -35,7 +35,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable, ITargetable
     private void Die()
     {
         OnDeath?.Invoke();
-        Debug.Log("Player is dead");
     }
 
     private void OnEnable()

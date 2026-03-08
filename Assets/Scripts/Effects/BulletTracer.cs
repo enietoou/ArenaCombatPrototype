@@ -8,6 +8,13 @@ public class BulletTracer : MonoBehaviour
     
     private TrailRenderer _trail;
     private Vector3 _target;
+    
+    private ObjectPool<BulletTracer> _pool;
+
+    public void SetPool(ObjectPool<BulletTracer> pool)
+    {
+        _pool = pool;
+    }
 
     private void Awake()
     {
@@ -37,6 +44,6 @@ public class BulletTracer : MonoBehaviour
             yield return null;
         }
         
-        Destroy(gameObject);
+        _pool.Release(this);
     }
 }

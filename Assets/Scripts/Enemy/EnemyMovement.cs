@@ -9,8 +9,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float separationStrength = 1.2f;
 
     private Enemy _enemy;
-
-    private EnemyTargetSystem _targetSystem;
+    
     private Rigidbody _rb;
     private EnemyRotation _rotation;
     
@@ -19,7 +18,6 @@ public class EnemyMovement : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _targetSystem = GetComponent<EnemyTargetSystem>();
         _enemy = GetComponent<Enemy>();
         _rotation = GetComponent<EnemyRotation>();
     }
@@ -71,5 +69,11 @@ public class EnemyMovement : MonoBehaviour
         }
 
         return separation * separationStrength;
+    }
+    
+    public void ResetMovement()
+    {
+        _rb.linearVelocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
     }
 }

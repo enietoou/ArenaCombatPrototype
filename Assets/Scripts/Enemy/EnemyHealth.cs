@@ -33,6 +33,12 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     private void Die()
     {
         OnDeath?.Invoke(this);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+    }
+
+    public void ResetHealth()
+    {
+        _currentHealth = _enemy.Stats.maxHealth;
+        gameObject.SetActive(true);
     }
 }

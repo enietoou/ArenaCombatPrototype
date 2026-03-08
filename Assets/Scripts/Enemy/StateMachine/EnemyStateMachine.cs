@@ -88,4 +88,12 @@ public class EnemyStateMachine : MonoBehaviour
     {
         _health.OnDamage -= HandleDamage;
     }
+    
+    public void ResetState()
+    {
+        _currentState?.Exit();
+        _previousState = null;
+        
+        ChangeState(IdleState);
+    }
 }
