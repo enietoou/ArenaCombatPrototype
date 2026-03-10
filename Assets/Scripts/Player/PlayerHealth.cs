@@ -46,4 +46,13 @@ public class PlayerHealth : MonoBehaviour, IDamageable, ITargetable
     {
         TargetRegistry.AllTargets.Remove(this);
     }
+
+    public void Heal(int amount)
+    {
+        _currentHealth += amount;
+        
+        if (_currentHealth > maxHealth) _currentHealth = maxHealth;
+        
+        OnHealthChange?.Invoke(_currentHealth, maxHealth);
+    }
 }

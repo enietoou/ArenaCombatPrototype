@@ -20,4 +20,8 @@ public class EnemyStats : ScriptableObject
 
     [Header("Targeting")]
     public float aggroRadius = 10f;
+    
+    [Header("Health pickup drop")]
+    public GameObject healthDropPrefab = null;
+    public float dropChance = 0.2f;
 }

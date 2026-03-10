@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Combat.Interfaces;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
@@ -34,6 +35,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     {
         OnDeath?.Invoke(this);
         gameObject.SetActive(false);
+
+        if (_enemy.Stats.healthDropPrefab != null && Random.value < _enemy.Stats.dropChance)
+        {
+            Instantiate(_enemy.Stats.healthDropPrefab, transform.position, Quaternion.identity);
+        }
     }
 
     public void ResetHealth()

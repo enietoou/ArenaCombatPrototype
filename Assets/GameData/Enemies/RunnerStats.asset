@@ -20,3 +20,5 @@ MonoBehaviour:
   attackRate: 1.5
   attackDistance: 2
   aggroRadius: 25
+  healthDropPrefab: {fileID: 8529642969688316497, guid: 09900238d8afdb142becafd2aee44db1, type: 3}
+  dropChance: 0.2
