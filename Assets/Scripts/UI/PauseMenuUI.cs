@@ -6,6 +6,7 @@ public class PauseMenuUI : MonoBehaviour
 {
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private Slider volumeSlider;
+    [SerializeField] private GameOverUI gameOverUI;
 
     private bool _isPaused;
 
@@ -19,6 +20,8 @@ public class PauseMenuUI : MonoBehaviour
 
     private void Update()
     {
+        if (gameOverUI != null && gameOverUI.IsGameOver()) return;
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
