@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class GameOverUI : MonoBehaviour
 {
@@ -22,17 +21,21 @@ public class GameOverUI : MonoBehaviour
         gameOverPanel.SetActive(true);
         
         Time.timeScale = 0;
+        
+        AudioListener.pause = true;
     }
 
     public void Respawn()
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        AudioListener.pause = false;
     }
 
     public void LoadMainMenu()
     {
         Time.timeScale = 1;
+        AudioListener.pause = false;
         SceneManager.LoadScene("MainMenu");
     }
 
